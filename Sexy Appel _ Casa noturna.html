@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sexy Appel | Casa noturna</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;800&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#04170f;--bg2:#08281b;--pink:#ff2bd6;--cyan:#19e6ff;--violet:#9d4dff;--yellow:#ffe600;--moss:#0f4a30;--emerald:#1fbf75;--lime:#b6f23a;--mint:#e6f6ea;--mute:#8fb5a1;
+  --display:'Unbounded','Arial Black',Impact,sans-serif;--body:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif;
+  color-scheme:dark;box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:calc(72px + env(safe-area-inset-top,0px))}
+body{margin:0;background:var(--bg);color:var(--mint);font-family:var(--body);line-height:1.6;font-size:17px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--lime);outline-offset:3px}
+.wrap{width:min(1120px,100% - 40px);margin-inline:auto}
+h1,h2,h3{font-family:var(--display);line-height:1.05;margin:0}
+h2{font-size:clamp(1.8rem,4.5vw,3rem);font-weight:800;margin-bottom:12px}
+.lead{color:var(--mute);max-width:56ch;margin:0 0 36px}
+section{padding:88px 0}
+
+/* cabeçalho */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(4,23,15,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--moss)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:72px}
+.logo{font-family:var(--display);font-weight:800;font-size:1.05rem;text-decoration:none;letter-spacing:.02em}
+.logo b{color:var(--pink);text-shadow:0 0 12px var(--pink)}
+nav{display:flex;gap:22px;align-items:center}
+nav a{text-decoration:none;font-weight:600;font-size:.95rem;color:var(--mute)}
+nav a:hover{color:var(--mint)}
+.btn{display:inline-block;background:var(--lime);color:#06210f;font-weight:700;text-decoration:none;padding:14px 26px;border-radius:999px;border:0;cursor:pointer;font:700 1rem var(--body);transition:transform .15s,background .15s}
+.btn:hover{transform:translateY(-2px);background:#caff55}
+.btn.ghost{background:transparent;color:var(--mint);border:2px solid var(--emerald)}
+.btn.ghost:hover{background:var(--moss)}
+nav .btn{padding:10px 20px;color:#06210f}
+.menu-btn{display:none;background:none;border:2px solid var(--emerald);color:var(--mint);border-radius:10px;padding:8px 12px;font:600 .95rem var(--body);cursor:pointer}
+
+/* hero: o raio laser é o elemento memorável */
+.hero{position:relative;overflow:hidden;padding:0;min-height:calc(100svh - 72px);display:flex;align-items:flex-end;background:radial-gradient(120% 80% at 70% 0%,var(--moss),var(--bg) 62%)}
+.beams{position:absolute;inset:0;pointer-events:none;transition:opacity 1.6s ease .3s}
+.beam{position:absolute;top:-6%;left:var(--x);width:3px;height:130%;transform-origin:top center;background:linear-gradient(var(--c),transparent 85%);box-shadow:0 0 22px 6px var(--c);opacity:.7;animation:sweep var(--t) ease-in-out infinite alternate;animation-delay:var(--d)}
+@keyframes sweep{from{transform:rotate(-34deg)}to{transform:rotate(34deg)}}
+.hero .wrap{position:relative;padding:60px 0 64px}
+.hero h1{font-size:clamp(3.4rem,14vw,9.5rem);font-weight:800;letter-spacing:-.04em;text-shadow:0 -6px 50px rgba(255,43,214,.45),0 6px 50px rgba(25,230,255,.35)}
+.hero p{font-size:1.2rem;max-width:44ch;margin:18px 0 28px}
+.cta{display:flex;gap:14px;flex-wrap:wrap}
+.count{display:flex;gap:10px;margin-top:40px;flex-wrap:wrap}
+.count div{background:rgba(8,40,27,.75);border:1px solid var(--moss);border-radius:14px;padding:12px 18px;min-width:78px;text-align:center}
+.count strong{display:block;font:800 1.9rem var(--display);color:var(--lime)}
+.count span{font-size:.8rem;color:var(--mute)}
+.count-label{margin:36px 0 -28px;color:var(--mute);font-weight:600}
+
+/* eventos */
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px}
+.chip{background:transparent;color:var(--mint);border:1.5px solid var(--moss);padding:9px 20px;border-radius:999px;font:600 .95rem var(--body);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--emerald);border-color:var(--emerald);color:#04170f}
+.events{display:grid;gap:0;border-top:1px solid var(--moss)}
+.ev{display:grid;grid-template-columns:110px 1fr auto;gap:24px;align-items:center;padding:26px 0;border-bottom:1px solid var(--moss)}
+.ev[hidden]{display:none}
+.date{font-family:var(--display);font-weight:800;font-size:2.8rem;line-height:1;color:var(--lime)}
+.date small{display:block;font:600 .85rem var(--body);color:var(--mute);margin-top:6px}
+.ev h3{font-size:1.4rem;margin-bottom:6px}
+.ev p{margin:0;color:var(--mute)}
+.price{font-weight:700;margin-right:18px;text-align:right}
+
+/* line-up */
+.lineup{background:var(--bg2)}
+.djs{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:22px}
+.dj{border:1px solid var(--moss);border-radius:22px;padding:26px;background:var(--bg)}
+.avatar{width:84px;height:84px;border-radius:50%;display:grid;place-items:center;font:800 1.6rem var(--display);color:#04170f;margin-bottom:18px;background:conic-gradient(from 200deg,var(--emerald),var(--lime),var(--emerald))}
+.dj h3{font-size:1.15rem;margin-bottom:4px}
+.dj p{margin:0;color:var(--mute);font-size:.95rem}
+
+.alt{background:var(--bg2)}
+.team{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px}
+.girl{border:1px solid var(--moss);border-radius:22px;overflow:hidden;background:var(--bg2)}
+.photo{aspect-ratio:4/5;display:grid;place-items:center;background:radial-gradient(circle at 30% 20%,var(--emerald),var(--moss) 70%);font:800 3rem var(--display);color:var(--bg)}
+.photo img{width:100%;height:100%;object-fit:cover}
+.gt{padding:18px 20px}
+.girl h3{font-size:1.1rem;margin-bottom:2px}
+.girl p{margin:0;color:var(--mute);font-size:.95rem}
+.combos{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px}
+.combo{border:1px solid var(--moss);border-radius:22px;padding:26px;background:var(--bg);display:flex;flex-direction:column;gap:12px}
+.combo h3{font-size:1.15rem}
+.combo p{margin:0;color:var(--mute);font-size:.95rem;flex:1}
+.combo .v{font:800 1.8rem var(--display);color:var(--lime)}
+.ev:nth-child(4n+1) .date,.combo:nth-child(4n+1) .v{color:var(--pink);text-shadow:0 0 18px var(--pink)}
+.ev:nth-child(4n+2) .date,.combo:nth-child(4n+2) .v{color:var(--cyan);text-shadow:0 0 18px var(--cyan)}
+.ev:nth-child(4n+3) .date,.combo:nth-child(4n+3) .v{color:var(--yellow);text-shadow:0 0 18px var(--yellow)}
+.ev:nth-child(4n) .date,.combo:nth-child(4n) .v{color:var(--lime);text-shadow:0 0 18px var(--lime)}
+.dj:nth-child(2) .avatar{background:conic-gradient(from 200deg,var(--pink),var(--violet),var(--pink))}
+.dj:nth-child(3) .avatar{background:conic-gradient(from 200deg,var(--cyan),var(--violet),var(--cyan))}
+.dj:nth-child(4) .avatar{background:conic-gradient(from 200deg,var(--yellow),var(--pink),var(--yellow))}
+.girl:nth-child(2) .photo{background:radial-gradient(circle at 30% 20%,var(--pink),#3a0f46 70%)}
+.girl:nth-child(3) .photo{background:radial-gradient(circle at 30% 20%,var(--cyan),#0b3a4a 70%)}
+.girl:nth-child(4) .photo{background:radial-gradient(circle at 30% 20%,var(--violet),#26104a 70%)}
+footer b{font-family:var(--display);color:var(--pink);text-shadow:0 0 10px var(--pink)}
+.locked{overflow:hidden}
+#gate{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:24px;background:radial-gradient(120% 90% at 50% 0%,var(--moss),var(--bg) 70%);text-align:center}
+.gate-box{max-width:460px}
+.gate-box h2{font-size:clamp(2.2rem,9vw,3.6rem);text-shadow:0 -4px 40px rgba(255,43,214,.5),0 4px 40px rgba(25,230,255,.4)}
+.gate-box p{color:var(--mute);margin:12px 0 28px}
+.gate-box .cta{justify-content:center}
+.gate-box h2{animation:neon 1.6s ease-out both}
+.gate-line{display:block;height:2px;width:0;margin:20px auto 0;background:linear-gradient(90deg,var(--pink),var(--cyan));animation:gline 1s .9s ease-out forwards}
+.gate-box p,.gate-box .cta{opacity:0;animation:gfade .8s 1.5s ease-out forwards}
+#gate.out{opacity:0;transform:scale(1.06);pointer-events:none;transition:opacity .6s ease,transform .6s ease}
+.locked .beams{opacity:0}
+@keyframes neon{0%{opacity:0}8%{opacity:.9}12%{opacity:.2}20%{opacity:1}28%{opacity:.4}36%,100%{opacity:1}}
+@keyframes gline{to{width:min(260px,60%)}}
+@keyframes gfade{to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.gate-box h2,.gate-line,.gate-box p,.gate-box .cta{animation:none}.gate-line{width:min(260px,60%)}.gate-box p,.gate-box .cta{opacity:1}#gate.out{transition:none;transform:none}.beams{transition:none}}
+.sound{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:40;background:var(--bg2);color:var(--mint);border:1.5px solid var(--emerald);border-radius:50%;width:46px;height:46px;display:grid;place-items:center;padding:0;cursor:pointer}
+.sound:hover{border-color:var(--lime)}
+.sound svg{width:22px;height:22px}
+.sound .x{display:none}
+.sound.off .waves{display:none}
+.sound.off .x{display:block}
+/* vip */
+.vip{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.sectors{list-style:none;padding:0;margin:0;display:grid;gap:14px}
+.sectors li{padding:18px 20px;border-left:4px solid var(--emerald);background:var(--bg2);border-radius:0 14px 14px 0}
+.sectors strong{display:block;font-family:var(--display);font-size:1.05rem;margin-bottom:2px}
+.sectors span{color:var(--mute);font-size:.95rem}
+form{background:var(--bg2);border:1px solid var(--moss);border-radius:22px;padding:28px;display:grid;gap:16px}
+label{display:grid;gap:6px;font-weight:600;font-size:.95rem}
+input,select{background:var(--bg);color:var(--mint);border:1.5px solid var(--moss);border-radius:12px;padding:13px 14px;font:400 1rem var(--body)}
+input:focus,select:focus{border-color:var(--lime)}
+
+/* local */
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:36px}
+.info h3{font-size:1.05rem;color:var(--lime);margin-bottom:10px}
+.info p{margin:0;color:var(--mute)}
+footer{border-top:1px solid var(--moss);padding:36px 0;color:var(--mute);font-size:.92rem}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+@media (max-width:980px){
+  .menu-btn{display:block}
+  nav{position:absolute;top:72px;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:var(--bg);border-bottom:1px solid var(--moss);padding:8px 20px 20px;display:none}
+  nav.open{display:flex}
+  nav a{padding:14px 0}
+  .vip{grid-template-columns:1fr;gap:36px}
+  .ev{grid-template-columns:84px 1fr;gap:16px}
+  .ev .act{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between}
+  .date{font-size:2.1rem}
+  section{padding:64px 0}
+}
+@media (prefers-reduced-motion:reduce){.beam{animation:none;transform:rotate(calc(var(--r,0)*1deg))}html{scroll-behavior:auto}.btn{transition:none}}
+</style>
+</head>
+<body class="locked">
+<div id="gate" role="dialog" aria-modal="true" aria-labelledby="gateT">
+  <div class="gate-box">
+    <h2 id="gateT">SEXY APPEL</h2>
+    <span class="gate-line"></span>
+    <p>Você tem 18 anos ou mais?</p>
+    <div class="cta">
+      <button class="btn" id="enter" autofocus>Tenho 18 anos, entrar</button>
+      <a class="btn ghost" href="https://www.google.com/">Sair</a>
+    </div>
+  </div>
+</div>
+<button class="sound" id="sound" aria-label="Desligar som"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><g class="waves"><path d="M16.5 8.5a5 5 0 0 1 0 7"/><path d="M19 6a8.5 8.5 0 0 1 0 12"/></g><path class="x" d="M17 9l5 6M22 9l-5 6"/></svg></button>
+<header>
+  <div class="wrap bar">
+    <a class="logo" href="#topo">SEXY APPEL<b>.</b></a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav">
+      <a href="#eventos">Eventos</a>
+      <a href="#lineup">Line-up</a>
+      <a href="#equipe">Equipe</a>
+      <a href="#combos">Combos</a>
+      <a href="#vip">Camarotes</a>
+      <a href="#local">Como chegar</a>
+      <a class="btn" href="#vip">Reservar</a>
+    </nav>
+  </div>
+</header>
+
+<main id="topo">
+  <div class="hero">
+    <div class="beams" aria-hidden="true">
+      <i class="beam" style="--x:12%;--c:#ff2bd6;--t:7s;--d:-1s;--r:-18"></i>
+      <i class="beam" style="--x:34%;--c:#b6f23a;--t:9s;--d:-4s;--r:10"></i>
+      <i class="beam" style="--x:58%;--c:#19e6ff;--t:6s;--d:-2s;--r:22"></i>
+      <i class="beam" style="--x:78%;--c:#9d4dff;--t:8s;--d:-5s;--r:-8"></i>
+      <i class="beam" style="--x:92%;--c:#1fbf75;--t:10s;--d:-3s;--r:16"></i>
+    </div>
+    <div class="wrap">
+      <h1>SEXY<br>APPEL</h1>
+      <p>Horário de pico das 21h às 3h. Pista, camarotes e as melhores noites de Registro.</p>
+      <div class="cta">
+        <a class="btn" href="#eventos">Ver próximas festas</a>
+        <a class="btn ghost" href="#vip">Reservar camarote</a>
+      </div>
+      <p class="count-label" id="countLabel"></p>
+      <div class="count" id="count" role="timer" aria-live="off">
+        <div><strong id="cd">00</strong><span>dias</span></div>
+        <div><strong id="ch">00</strong><span>horas</span></div>
+        <div><strong id="cm">00</strong><span>min</span></div>
+        <div><strong id="cs">00</strong><span>seg</span></div>
+      </div>
+    </div>
+  </div>
+
+  <section id="eventos">
+    <div class="wrap">
+      <h2>Próximas festas</h2>
+      <p class="lead">Escolha a noite e garanta seu nome na lista pelo WhatsApp.</p>
+      <div class="filters" id="filters" role="group" aria-label="Filtrar por estilo"></div>
+      <div class="events" id="events"></div>
+    </div>
+  </section>
+
+  <section class="lineup" id="lineup">
+    <div class="wrap">
+      <h2>Quem toca</h2>
+      <p class="lead">Atrações residentes e convidados da temporada.</p>
+      <div class="djs">
+        <article class="dj"><div class="avatar">NV</div><h3>DJ Nova</h3><p>House e tech house</p></article>
+        <article class="dj"><div class="avatar">KR</div><h3>Kaio Reis</h3><p>Funk e pop remix</p></article>
+        <article class="dj"><div class="avatar">LM</div><h3>Lara Mont</h3><p>Eletrônico e progressive</p></article>
+        <article class="dj"><div class="avatar">TB</div><h3>Trio Bravos</h3><p>Sertanejo ao vivo</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="equipe">
+    <div class="wrap">
+      <h2>Nossa equipe</h2>
+      <p class="lead">Quem faz a noite acontecer na Sexy Appel.</p>
+      <div class="team" id="team"></div>
+    </div>
+  </section>
+
+  <section class="alt" id="combos">
+    <div class="wrap">
+      <h2>Combos de bebidas</h2>
+      <p class="lead">Peça o combo da sua mesa pelo WhatsApp e a gente leva até você.</p>
+      <div class="combos" id="combosList"></div>
+    </div>
+  </section>
+
+  <section id="vip">
+    <div class="wrap vip">
+      <div>
+        <h2>Camarotes e área VIP</h2>
+        <p class="lead">Escolha o setor, preencha ao lado e a gente confirma pelo WhatsApp.</p>
+        <ul class="sectors">
+          <li><strong>Pista</strong><span>Entrada com nome na lista, valor reduzido até as 00h.</span></li>
+          <li><strong>Área VIP</strong><span>Acesso rápido, bar exclusivo e visão do palco.</span></li>
+          <li><strong>Camarote</strong><span>Mesa para até 8 pessoas, com garrafa e atendimento no lugar.</span></li>
+        </ul>
+      </div>
+      <form id="vipForm">
+        <label>Seu nome<input id="fNome" required autocomplete="name"></label>
+        <label>Festa<select id="fEvento"></select></label>
+        <label>Setor<select id="fSetor"><option>Pista</option><option>Área VIP</option><option>Camarote</option></select></label>
+        <label>Quantas pessoas<input id="fQtd" type="number" min="1" max="20" value="4" required></label>
+        <button class="btn" type="submit">Enviar pelo WhatsApp</button>
+      </form>
+    </div>
+  </section>
+
+  <section id="local" style="padding-top:0">
+    <div class="wrap">
+      <h2>Como chegar</h2>
+      <p class="lead">Endereço e regras da casa.</p>
+      <div class="info">
+        <div><h3>Endereço</h3><p>Rua Existente, 10<br>Jardim São Mateus<br>Registro, SP</p></div>
+        <div><h3>Horário</h3><p>Horário de pico: das 21h às 3h.</p></div>
+        <div><h3>Regras</h3><p>Maiores de 18 anos, com documento com foto. Traje esporte fino.</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Sexy Appel. Beba com moderação.<br>Site por <a href="https://zomofay.github.io/LP-Anderson/" target="_blank" rel="noopener" title="Desenvolvido por Anderson"><b>AF</b></a></span>
+    <span><a href="https://instagram.com/" rel="noopener">Instagram</a> · <a id="wppLink" href="#" rel="noopener">WhatsApp</a></span>
+  </div>
+</footer>
+
+<script>
+const WPP = "5513996377112";
+const wpp = t => "https://wa.me/" + WPP + "?text=" + encodeURIComponent(t);
+const MESES = ["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"];
+const DIAS = ["Domingo","Segunda","Terça","Quarta","Quinta","Sexta","Sábado"];
+
+// próxima ocorrência de um dia da semana (0=dom) a partir de hoje, às 23h
+function proximo(dow, semanas){
+  const d = new Date(); d.setHours(21,0,0,0);
+  let diff = (dow - d.getDay() + 7) % 7;
+  if (diff === 0 && new Date() > d) diff = 7;
+  d.setDate(d.getDate() + diff + 7*semanas);
+  return d;
+}
+const EVENTOS = [
+  {nome:"Noite Eletrônica", dj:"DJ Nova e Lara Mont", estilo:"Eletrônico", preco:"A partir de R$ 40", data:proximo(5,0)},
+  {nome:"Baile Sexy Appel",    dj:"Kaio Reis",           estilo:"Funk",       preco:"A partir de R$ 30", data:proximo(6,0)},
+  {nome:"Sertanejo Open Bar", dj:"Trio Bravos",       estilo:"Sertanejo",  preco:"A partir de R$ 60", data:proximo(5,1)},
+  {nome:"Appel Sessions",    dj:"Lara Mont",           estilo:"Eletrônico", preco:"A partir de R$ 40", data:proximo(6,1)}
+];
+const rotulo = e => e.nome + " (" + DIAS[e.data.getDay()] + ", " + e.data.getDate() + "/" + (e.data.getMonth()+1) + ")";
+
+// lista de eventos + filtro
+const elEv = document.getElementById("events"), elF = document.getElementById("filters");
+elEv.innerHTML = EVENTOS.map((e,i) => `
+  <article class="ev" data-estilo="${e.estilo}">
+    <div class="date">${String(e.data.getDate()).padStart(2,"0")}<small>${MESES[e.data.getMonth()]}, ${DIAS[e.data.getDay()].toLowerCase()}</small></div>
+    <div><h3>${e.nome}</h3><p>${e.dj} · ${e.estilo}</p></div>
+    <div class="act"><span class="price">${e.preco}</span><a class="btn ghost" href="${wpp("Oi! Quero entrar na lista da festa: " + rotulo(e))}" target="_blank" rel="noopener">Entrar na lista</a></div>
+  </article>`).join("");
+["Todos", ...new Set(EVENTOS.map(e => e.estilo))].forEach((s,i) => {
+  const b = document.createElement("button");
+  b.className = "chip"; b.textContent = s; b.setAttribute("aria-pressed", i === 0);
+  b.onclick = () => {
+    elF.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", c === b));
+    elEv.querySelectorAll(".ev").forEach(ev => ev.hidden = s !== "Todos" && ev.dataset.estilo !== s);
+  };
+  elF.appendChild(b);
+});
+
+// equipe: para usar foto real, coloque o caminho da imagem em "foto"
+const EQUIPE = [
+  {nome:"Bia", funcao:"Dançarina", dias:"Sex e sáb", foto:""},
+  {nome:"Duda", funcao:"Dançarina", dias:"Sáb", foto:""},
+  {nome:"Lari", funcao:"Hostess", dias:"Sex e sáb", foto:""},
+  {nome:"Maya", funcao:"Bartender", dias:"Sex e sáb", foto:""}
+];
+document.getElementById("team").innerHTML = EQUIPE.map(m => `<article class="girl"><div class="photo">${m.foto ? `<img src="${m.foto}" alt="${m.nome}">` : m.nome[0]}</div><div class="gt"><h3>${m.nome}</h3><p>${m.funcao} · ${m.dias}</p></div></article>`).join("");
+
+// combos de bebidas (valores de exemplo)
+const COMBOS = [
+  {nome:"Combo Appel", itens:"1 garrafa de vodka, 5 energéticos e gelo", valor:"R$ 280"},
+  {nome:"Combo Gin", itens:"1 gin, 4 tônicas, frutas e gelo", valor:"R$ 240"},
+  {nome:"Combo Whisky", itens:"1 whisky 1L, 6 energéticos e gelo", valor:"R$ 520"},
+  {nome:"Combo Cerveja", itens:"12 long necks geladas", valor:"R$ 140"}
+];
+document.getElementById("combosList").innerHTML = COMBOS.map(c => `<article class="combo"><h3>${c.nome}</h3><p>${c.itens}</p><div class="v">${c.valor}</div><a class="btn ghost" href="${wpp("Oi! Quero pedir o " + c.nome + " (" + c.valor + ").")}" target="_blank" rel="noopener">Pedir no WhatsApp</a></article>`).join("");
+
+// formulário vira mensagem de WhatsApp
+document.getElementById("fEvento").innerHTML = EVENTOS.map((e,i) => `<option value="${i}">${rotulo(e)}</option>`).join("");
+document.getElementById("vipForm").addEventListener("submit", ev => {
+  ev.preventDefault();
+  const e = EVENTOS[document.getElementById("fEvento").value];
+  const msg = `Oi! Meu nome é ${document.getElementById("fNome").value}. Quero reservar ${document.getElementById("fSetor").value} para ${document.getElementById("fQtd").value} pessoas na festa ${rotulo(e)}.`;
+  window.open(wpp(msg), "_blank", "noopener");
+});
+document.getElementById("wppLink").href = wpp("Oi! Vim pelo site da Sexy Appel.");
+
+// contagem regressiva até a próxima festa
+const alvo = EVENTOS.map(e => e.data).sort((a,b) => a-b)[0];
+document.getElementById("countLabel").textContent = "Próxima festa: " + rotulo(EVENTOS.find(e => e.data === alvo));
+const p2 = n => String(n).padStart(2,"0");
+function tick(){
+  let s = Math.max(0, Math.floor((alvo - new Date())/1000));
+  document.getElementById("cd").textContent = p2(Math.floor(s/86400));
+  document.getElementById("ch").textContent = p2(Math.floor(s%86400/3600));
+  document.getElementById("cm").textContent = p2(Math.floor(s%3600/60));
+  document.getElementById("cs").textContent = p2(s%60);
+}
+tick(); setInterval(tick, 1000);
+
+// som: música e efeitos sintetizados no navegador (sem arquivos de áudio)
+const Snd = (() => {
+  let ctx, master, nbuf, timer = null, step = 0, next = 0, on = true;
+  const sp = 60 / 122 / 4;
+  const bass = [55,0,55,0,65.4,0,55,0,73.4,0,65.4,0,49,0,55,0];
+  const env = (g,t,a,d,v) => { g.gain.setValueAtTime(0.0001,t); g.gain.exponentialRampToValueAtTime(v,t+a); g.gain.exponentialRampToValueAtTime(0.0001,t+a+d); };
+  const osc = (type,f,t,d,v,f2) => { const o = ctx.createOscillator(), g = ctx.createGain(); o.type = type; o.frequency.setValueAtTime(f,t); if (f2) o.frequency.exponentialRampToValueAtTime(f2,t+d); env(g,t,0.005,d,v); o.connect(g); g.connect(master); o.start(t); o.stop(t+d+0.05); };
+  const hiss = (t,d,v,hp) => { const s = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain(); s.buffer = nbuf; f.type = 'highpass'; f.frequency.value = hp; env(g,t,0.002,d,v); s.connect(f); f.connect(g); g.connect(master); s.start(t); s.stop(t+d+0.05); };
+  const beat = (i,t) => {
+    if (i % 4 === 0) osc('sine',150,t,0.25,0.9,45);
+    if (i % 4 === 2) hiss(t,0.07,0.22,7000);
+    if (i % 8 === 4) hiss(t,0.14,0.3,1500);
+    if (bass[i]) osc('sawtooth',bass[i],t,0.18,0.16);
+    if (i === 0) [220,261.6,329.6].forEach(f => osc('triangle',f,t,sp*15,0.05));
+  };
+  const sched = () => { while (next < ctx.currentTime + 0.12) { beat(step % 16,next); next += sp; step++; } };
+  const run = () => { if (on && ctx && !timer) { next = ctx.currentTime + 0.05; timer = setInterval(sched,25); } };
+  const sfx = fn => { if (on && ctx) fn(ctx.currentTime); };
+  return {
+    start(){
+      if (!ctx) {
+        ctx = new (window.AudioContext || window.webkitAudioContext)();
+        master = ctx.createGain(); master.gain.value = 0.2; master.connect(ctx.destination);
+        nbuf = ctx.createBuffer(1,ctx.sampleRate,ctx.sampleRate);
+        const d = nbuf.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+      }
+      ctx.resume(); run();
+    },
+    toggle(){ on = !on; if (on) run(); else { clearInterval(timer); timer = null; } return on; },
+    hover(){ sfx(t => osc('sine',1400,t,0.04,0.05)); },
+    click(){ sfx(t => osc('square',700,t,0.09,0.08,1400)); },
+    ding(){ sfx(t => { osc('sine',1568,t,0.35,0.12); osc('sine',2093,t+0.09,0.5,0.1); }); },
+    open(){ sfx(t => osc('sawtooth',180,t,0.7,0.12,1400)); }
+  };
+})();
+
+// tela de entrada (maiores de 18): o clique libera o áudio no navegador
+const gate = document.getElementById('gate'), snd = document.getElementById('sound');
+document.getElementById('enter').onclick = () => {
+  try { Snd.start(); Snd.open(); } catch (e) {}
+  gate.classList.add('out'); document.body.classList.remove('locked'); setTimeout(() => gate.remove(), 700);
+};
+snd.onclick = () => { try { const on = Snd.toggle(); snd.classList.toggle('off', !on); snd.setAttribute('aria-label', on ? 'Desligar som' : 'Ligar som'); } catch (e) {} };
+const HOV = '.btn, .chip, .ev, .dj, .girl, .combo, nav a';
+let lastHover = 0;
+document.addEventListener('mouseover', e => {
+  const el = e.target.closest(HOV);
+  if (!el || el.contains(e.relatedTarget) || Date.now() - lastHover < 80) return;
+  lastHover = Date.now(); Snd.hover();
+});
+document.addEventListener('click', e => {
+  if (e.target.id === 'enter') return;
+  if (e.target.closest('.combo .btn')) Snd.ding();
+  else if (e.target.closest('.btn, .chip, nav a')) Snd.click();
+});
+
+// menu mobile
+const nav = document.getElementById("nav"), mb = document.getElementById("menuBtn");
+mb.onclick = () => mb.setAttribute("aria-expanded", nav.classList.toggle("open"));
+nav.addEventListener("click", e => { if (e.target.tagName === "A") { nav.classList.remove("open"); mb.setAttribute("aria-expanded", false); } });
+</script>
+</body>
+</html>
